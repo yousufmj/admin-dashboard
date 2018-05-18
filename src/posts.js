@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, DisabledInput,
-    LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput, Filter } from 'react-admin';
+    LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput, Filter,SimpleList } from 'react-admin';
 
 export const PostList = (props) => (
     <List {...props}  filters={<PostFilter />}>
