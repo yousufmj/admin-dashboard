@@ -10,8 +10,9 @@ import {
 } from 'react-admin';
 import { stringify } from 'query-string';
 import config from './config';
+import axios from 'axios';
 
-const apiUrl = config.api_url;
+
 
 /**
  * Maps react-admin queries to Comp Handler REST API
@@ -105,7 +106,9 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
      */
     const convertHTTPResponse = (response, type, resource, params) => {
         const { headers, json } = response;
+        console.log(type);
         switch (type) {
+            case GET_LIST:
             case CREATE:
                 return { data: { ...params.data, id: json.id } };
             default:
@@ -120,25 +123,18 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
      * @returns {Promise} the Promise for a data response
      */
     return (type, resource, params) => {
-        // simple-rest doesn't handle filters on UPDATE route, so we fallback to calling UPDATE n times instead
-        if (type === UPDATE_MANY) {
-            return Promise.all(
-                params.ids.map(id =>
-                    httpClient(`${apiUrl}/${resource}/${id}`, {
-                        method: 'PUT',
-                        body: JSON.stringify(params.data),
-                    })
-                )
-            ).then(responses => ({
-                data: responses.map(response => response.json),
-            }));
-        }
+
         const { url, options } = convertDataRequestToHTTP(
             type,
             resource,
             params
         );
-        return httpClient(url, options)
+
+        axios.get('127.0.0.1:3000/competitions/listAll') 
+        .then(json => console.log(json))
+        .catch(err => console.log(err))
+
+        return httpClient(url,options)
             .then(response => convertHTTPResponse(response, type, resource, params)
         );
     };

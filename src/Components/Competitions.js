@@ -3,14 +3,11 @@ import { List, Edit, Create, Datagrid, ReferenceField, TextField, EditButton, Di
     LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput, Filter,SimpleList } from 'react-admin';
 
 export const CompetitionList = (props) => (
-    <List {...props}  filters={<CompetitionFilter />}>
+    <List {...props}>
         <Datagrid>
             <TextField source="id" />
-            <ReferenceField label="User" source="userId" reference="users">
-                <TextField source="name" />
-            </ReferenceField>
             <TextField source="title" />
-            <TextField source="body" />
+            <TextField source="description" />
             <EditButton />
         </Datagrid>
     </List>
