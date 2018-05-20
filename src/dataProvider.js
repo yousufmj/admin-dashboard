@@ -130,10 +130,6 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             params
         );
 
-        axios.get('127.0.0.1:3000/competitions/listAll') 
-        .then(json => console.log(json))
-        .catch(err => console.log(err))
-
         return httpClient(url,options)
             .then(response => convertHTTPResponse(response, type, resource, params)
         );
