@@ -40,7 +40,15 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         const options = {};
         switch (type) {
             case GET_LIST: {
-                url = `${apiUrl}/${resource}/listAll`;
+                const { page, perPage } = params.pagination;
+                const { field, order } = params.sort;
+                const query = {
+                    sort: JSON.stringify([field, order]),
+                    filter: JSON.stringify(params.filter),
+                    perPage,
+                    page
+                };
+                url = `${apiUrl}/${resource}?${stringify(query)}`;
                 break;
             }
             case GET_ONE:
@@ -48,26 +56,32 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 break;
             case GET_MANY: {
                 const query = {
-                    filter: JSON.stringify({ id: params.ids }),
+                    filter: { id: params.ids },
                 };
-                url = `${apiUrl}/${resource}?${stringify(query)}`;
+                url = `${apiUrl}/${resource}?/search${stringify(query)}`;
                 break;
             }
             case GET_MANY_REFERENCE: {
                 const { page, perPage } = params.pagination;
                 const { field, order } = params.sort;
+                // const query = {
+                //     sort: JSON.stringify([field, order]),
+                //     range: JSON.stringify([
+                //         (page - 1) * perPage,
+                //         page * perPage - 1,
+                //     ]),
+                //     filter: JSON.stringify({
+                //         ...params.filter,
+                //         [params.target]: params.id,
+                //     }),
+                // };
                 const query = {
-                    sort: JSON.stringify([field, order]),
-                    range: JSON.stringify([
-                        (page - 1) * perPage,
-                        page * perPage - 1,
-                    ]),
-                    filter: JSON.stringify({
+                    filter: {
                         ...params.filter,
                         [params.target]: params.id,
-                    }),
+                    }
                 };
-                url = `${apiUrl}/${resource}?${stringify(query)}`;
+                url = `${apiUrl}/${resource}/search?${stringify(query)}`;
                 break;
             }
             case UPDATE:

@@ -14,10 +14,11 @@ import { UserList } from './users';
 import { CompetitionList, CompetitionCreate, CompetitionEdit } from './Components/Competitions';
 
 const provider = dataProvider('http://127.0.0.1:3000');
-// const dataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
+// const provider = jsonServerProvider('http://jsonplaceholder.typicode.com');
 const App = () => (
     <Admin dashboard={Dashboard} dataProvider={provider}>
         <Resource name="competitions" list={CompetitionList} create={CompetitionCreate} edit={CompetitionEdit} />
+        <Resource name="posts" list={PostList} create={PostCreate} edit={PostEdit} />
     </Admin>
 );
 

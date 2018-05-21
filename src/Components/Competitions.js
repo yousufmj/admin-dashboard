@@ -1,16 +1,16 @@
 import React from 'react';
 import { List, Edit, Create, Show, Datagrid, ReferenceField, TextField, EditButton, DisabledInput,
     LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput, Filter,SimpleList,
-    SimpleShowLayout, DateField, RichTextField, NumberInput, DateInput} from 'react-admin';
+    SimpleShowLayout, DateField, RichTextField, NumberInput, DateInput, NumberField} from 'react-admin';
 import RichTextInput from 'ra-input-rich-text';
 
 export const CompetitionList = (props) => (
 
-    <List {...props}>
+    <List {...props} filters={<CompetitionFilter />}>
         <Datagrid>
             <TextField source="id" />
-            <TextField source="Title" />
-            <TextField source="Description" />
+            <TextField source="title" />
+            <TextField source="description" />
             <EditButton />
         </Datagrid>
     </List>
@@ -20,21 +20,18 @@ const CompetitionTitle = ({ record }) => {
     return <span>Competition {record ? `"${record.title}"` : ''}</span>;
 };
 
-// const CompetitionFilter = (props) => (
-//     <Filter {...props}>
-//         <TextInput label="Search" source="q" alwaysOn />
-//         <ReferenceInput label="User" source="userId" reference="users" allowEmpty>
-//             <SelectInput optionText="name" />
-//         </ReferenceInput>
-//     </Filter>
-// );
+const CompetitionFilter = (props) => (
+    <Filter {...props}>
+        <TextInput label="Search Title" source="title" alwaysOn />
+    </Filter>
+);
 
 export const CompetitionEdit = (props) => (
     <Edit title={<CompetitionTitle />} {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="title" />
-            <RichTextInput source="description" />
+            <LongTextInput source="description" />
             <NumberInput source="magazineID" />
             <DateInput label="Start date" source="startDate"/>
             <DateInput label="Expiry date" source="expiryDate" />
@@ -46,7 +43,7 @@ export const CompetitionCreate = (props) => (
     <Create {...props}>
         <SimpleForm>
             <TextInput source="title" />
-            <RichTextInput source="description" />
+            <LongTextInput source="description" />
             <NumberInput source="magazineID" />
             <DateInput label="Start date" source="startDate"/>
             <DateInput label="Expiry date" source="expiryDate" />
@@ -57,9 +54,9 @@ export const CompetitionCreate = (props) => (
 export const CompetitionShow = (props) => (
     <Show {...props}>
         <SimpleShowLayout>
-            <TextField source="Title" />
-            <RichTextField source="Description" />
-            <TextField source="Title" />
+            <TextField source="title" />
+            <RichTextField source="description" />
+            <NumberField source="magazineID" />
             <DateField label="Start date" source="startDate" />
             <DateField label="Expiry date" source="expiryDate" />
         </SimpleShowLayout>
