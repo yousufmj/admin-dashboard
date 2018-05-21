@@ -20,19 +20,13 @@ import config from './config';
  * @param {string} resource Resource name, e.g. "posts"
  * @param {Object} payload Request parameters. Depends on the request type
  * @returns {Promise} the Promise for a data response
- */
-/**
- * Maps react-admin queries to a simple REST API
- *
- * The REST dialect is similar to the one of FakeRest
- * @see https://github.com/marmelab/FakeRest
  * @example
- * GET_LIST     => GET http://my.api.url/posts?sort=['title','ASC']&range=[0, 24]
- * GET_ONE      => GET http://my.api.url/posts/123
- * GET_MANY     => GET http://my.api.url/posts?filter={ids:[123,456,789]}
- * UPDATE       => PUT http://my.api.url/posts/123
- * CREATE       => POST http://my.api.url/posts/123
- * DELETE       => DELETE http://my.api.url/posts/123
+ * GET_LIST     => GET /{resource}?sort=['title','ASC']&range=[0, 24]
+ * GET_ONE      => GET /{resource}/123
+ * GET_MANY     => GET /{resource}/search?title=test
+ * UPDATE       => PUT /{resource}/123
+ * CREATE       => POST /{resource}/123
+ * DELETE       => DELETE /{resource}/123
  */
 export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
     /**
@@ -82,7 +76,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 options.body = JSON.stringify(params.data);
                 break;
             case CREATE:
-                url = `${apiUrl}/${resource}`;
+                url = `${apiUrl}/${resource}/create`;
                 options.method = 'POST';
                 options.body = JSON.stringify(params.data);
                 break;
@@ -113,7 +107,9 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                     total: json.results.length
                 }
             case CREATE:
-                return { data: { ...params.data, id: json.id } };
+                return { data: { ...params.data, id: json.results.id } };
+            case DELETE:
+                return { data: "Successful" };
             default:
                 console.log(json.results)
                 return { data: json.results };
