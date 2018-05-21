@@ -10,7 +10,6 @@ import {
 } from 'react-admin';
 import { stringify } from 'query-string';
 import config from './config';
-import axios from 'axios';
 
 
 
@@ -106,13 +105,18 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
      */
     const convertHTTPResponse = (response, type, resource, params) => {
         const { headers, json } = response;
-        console.log(type);
+
         switch (type) {
             case GET_LIST:
+                return {
+                    data: json.results,
+                    total: json.results.length
+                }
             case CREATE:
                 return { data: { ...params.data, id: json.id } };
             default:
-                return { data: json };
+                console.log(json.results)
+                return { data: json.results };
         }
     };
 

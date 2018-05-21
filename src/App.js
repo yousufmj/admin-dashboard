@@ -12,12 +12,13 @@ import config from './config';
 import { PostList,PostEdit, PostCreate } from './posts';
 import { UserList } from './users';
 import { CompetitionList } from './Components/Competitions';
+
+const provider = dataProvider('http://127.0.0.1:3000');
 // const dataProvider = jsonServerProvider('http://jsonplaceholder.typicode.com');
 const App = () => (
-    <Admin dashboard={Dashboard} authProvider={authProvider} dataProvider={dataProvider('http://127.0.0.1:3000')}>
-        {/* <Resource name="posts" list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon} />
-        <Resource name="users" list={UserList} icon={UserIcon} /> */}
+    <Admin dashboard={Dashboard} dataProvider={provider}>
         <Resource name="competitions" list={CompetitionList}  />
+        <Resource name="posts" list={PostList}  />
     </Admin>
 );
 
