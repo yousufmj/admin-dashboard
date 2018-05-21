@@ -108,10 +108,11 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 }
             case CREATE:
                 return { data: { ...params.data, id: json.results.id } };
+            case UPDATE:
+                return { data: "Successful" };
             case DELETE:
                 return { data: "Successful" };
             default:
-                console.log(json.results)
                 return { data: json.results };
         }
     };
