@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^1.0.0",
     "axios": "^0.18.0",
     "material-ui": "^0.20.1",
     "ra-data-json-server": "^2.0.0-RC4",
@@ -10,7 +11,8 @@
     "react": "^16.3.2",
     "react-admin": "^2.0.0-RC4",
     "react-dom": "^16.3.2",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "recompose": "^0.27.1"
   },
   "scripts": {
     "start": "react-scripts start",

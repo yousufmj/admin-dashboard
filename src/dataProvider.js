@@ -40,6 +40,7 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         const options = {};
         switch (type) {
             case GET_LIST: {
+                console.log(params)
                 const { page, perPage } = params.pagination;
                 const { field, order } = params.sort;
                 const query = {

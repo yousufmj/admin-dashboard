@@ -1,12 +1,15 @@
 import React from 'react';
 import { List, Edit, Create, Show, Datagrid, ReferenceField, TextField, EditButton, DisabledInput,
     LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput, Filter,SimpleList,
-    SimpleShowLayout, DateField, RichTextField, NumberInput, DateInput, NumberField} from 'react-admin';
+    SimpleShowLayout, DateField, RichTextField, NumberInput, DateInput, NumberField, CardActions, ShowButton,
+    ListButton, DeleteButton, RefreshButton, Button, CreateButton } from 'react-admin';
 import RichTextInput from 'ra-input-rich-text';
+import RefreshListActions from './RefreshListActions'
+
 
 export const CompetitionList = (props) => (
 
-    <List {...props} filters={<CompetitionFilter />}>
+    <List {...props} filters={<CompetitionFilter />} actions={<RefreshListActions/>}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="title" />
@@ -27,7 +30,7 @@ const CompetitionFilter = (props) => (
 );
 
 export const CompetitionEdit = (props) => (
-    <Edit title={<CompetitionTitle />} {...props}>
+    <Edit title={<CompetitionTitle />}  {...props}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="title" />
@@ -37,6 +40,16 @@ export const CompetitionEdit = (props) => (
             <DateInput label="Expiry date" source="expiryDate" />
         </SimpleForm>
     </Edit>
+);
+
+const CompetitionEditActions = ({ basePath, data, resource }) => (
+    <CardActions>
+        <ShowButton basePath={basePath} record={data} />
+        <ListButton basePath={basePath} />
+        <DeleteButton basePath={basePath} record={data} resource={resource} />
+        <RefreshButton />
+        <Button color="primary">Custom Action</Button>
+    </CardActions>
 );
 
 export const CompetitionCreate = (props) => (
@@ -61,4 +74,20 @@ export const CompetitionShow = (props) => (
             <DateField label="Expiry date" source="expiryDate" />
         </SimpleShowLayout>
     </Show>
+);
+
+const CompetitionActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter }) => (
+    <CardActions>
+        {filters && React.cloneElement(filters, {
+            resource,
+            showFilter,
+            displayedFilters,
+            filterValues,
+            context: 'button',
+        }) }
+        <CreateButton basePath={basePath} />
+        <RefreshButton />
+        {/* Add your custom actions */}
+        <Button color="primary" >Custom Action</Button>
+    </CardActions>
 );
