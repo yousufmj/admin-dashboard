@@ -9,8 +9,7 @@ import ResetButton from './../Components/ResetButton'
 
 export const CompetitionList = (props) => (
 
-    <List {...props} filters={<CompetitionFilter />} actions={<CompetitionActions/>}  >
-    {/* <List {...props} filters={<CompetitionFilter />} bulkActions={<CompetitionBulkActions/>}> */}
+    <List {...props} filters={<CompetitionFilter />}   actions={<CompetitionActions/>}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="title" />
@@ -31,7 +30,7 @@ const CompetitionFilter = (props) => (
 );
 
 export const CompetitionEdit = (props) => (
-    <Edit title={<CompetitionTitle />}  {...props}>
+    <Edit title={<CompetitionTitle />}  {...props} actions={<CompetitionEditActions />}>
         <SimpleForm>
             <DisabledInput source="id" />
             <TextInput source="title" />
@@ -46,10 +45,8 @@ export const CompetitionEdit = (props) => (
 const CompetitionEditActions = ({ basePath, data, resource }) => (
     <CardActions>
         <ShowButton basePath={basePath} record={data} />
-        <ListButton basePath={basePath} />
         <DeleteButton basePath={basePath} record={data} resource={resource} />
-        <RefreshButton />
-        <Button color="primary">Custom Action</Button>
+        <ResetButton />
     </CardActions>
 );
 
@@ -85,7 +82,7 @@ const CompetitionActions = (props, { resource, filters, displayedFilters, filter
             <BulkDeleteAction />
         </BulkActions>
 
-        <CreateButton basePath={basePath} />
+        <CreateButton basePath={'competitions'} />
         <ResetButton />
     </CardActions>
 );

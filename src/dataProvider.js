@@ -6,6 +6,7 @@ import {
     CREATE,
     UPDATE,
     DELETE,
+    DELETE_MANY,
     fetchUtils,
 } from 'react-admin';
 import { stringify } from 'query-string';
@@ -40,7 +41,6 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
         const options = {};
         switch (type) {
             case GET_LIST: {
-                console.log(params)
                 const { page, perPage } = params.pagination;
                 const { field, order } = params.sort;
                 const query = {
@@ -99,6 +99,14 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
                 url = `${apiUrl}/${resource}/${params.id}`;
                 options.method = 'DELETE';
                 break;
+            case DELETE_MANY:{
+                const query = {
+                    filter: JSON.stringify({ id: params.ids }),
+                };
+                url = `${apiUrl}/${resource}/many?${stringify(query)}`;
+                options.method = 'DELETE';
+                break;
+            }
             default:
                 throw new Error(`Unsupported fetch action type ${type}`);
         }
@@ -126,6 +134,8 @@ export default (apiUrl, httpClient = fetchUtils.fetchJson) => {
             case UPDATE:
                 return { data: "Successful" };
             case DELETE:
+                return { data: "Successful" };
+            case DELETE_MANY:
                 return { data: "Successful" };
             default:
                 return { data: json.results };
