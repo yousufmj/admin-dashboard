@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { translate, Link } from 'react-admin'
 import { stringify } from 'query-string';
-import RefreshIcon from '@material-ui/icons/Refresh';
+import SyncIcon from '@material-ui/icons/Sync';
 
 const styles = theme => ({
     button: {
@@ -32,7 +32,7 @@ const ResetView = ({ segment }) => (
         }}
     >
         Reset
-        <RefreshIcon />
+        <SyncIcon />
     </Button>
 );
 

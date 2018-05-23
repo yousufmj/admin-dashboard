@@ -4,12 +4,13 @@ import { List, Edit, Create, Show, Datagrid, ReferenceField, TextField, EditButt
     SimpleShowLayout, DateField, RichTextField, NumberInput, DateInput, NumberField, CardActions, ShowButton,
     ListButton, DeleteButton, RefreshButton, Button, CreateButton, BulkDeleteAction, BulkActions } from 'react-admin';
 import RichTextInput from 'ra-input-rich-text';
-import ResetButton from './../Components/ResetButton'
+import ResetButton from './../Components/ResetButton';
+import Actions from './actions';
 
 
 export const CompetitionList = (props) => (
 
-    <List {...props} filters={<CompetitionFilter />}   actions={<CompetitionActions/>}>
+    <List {...props} filters={<CompetitionFilter />} actions={ <Actions />} >
         <Datagrid>
             <TextField source="id" />
             <TextField source="title" />
@@ -74,15 +75,25 @@ export const CompetitionShow = (props) => (
     </Show>
 );
 
-const CompetitionActions = (props, { resource, filters, displayedFilters, filterValues, basePath, showFilter }) => (
+const CompetitionActions = (props, { resource, filters, displayedFilters, filterValues, basePath, showFilter, bulkActions, onUnselectItems, selectedIds }) => (
     <CardActions>
-        {filters && React.cloneElement(filters, {resource, showFilter, displayedFilters, filterValues, context: 'button'})}
-
-        <BulkActions {...props}>
-            <BulkDeleteAction />
-        </BulkActions>
+     {filters && React.cloneElement(filters, {resource, showFilter, displayedFilters, filterValues, context: 'button'})}
+     {bulkActions && React.cloneElement(bulkActions, {
+                    basePath,
+                    filterValues,
+                    resource,
+                    selectedIds,
+                    onUnselectItems,
+                })}
 
         <CreateButton basePath={'competitions'} />
         <ResetButton />
     </CardActions>
+);
+
+const ReviewsBulkActions = props => (
+    <BulkActions {...props}>
+        <BulkDeleteAction/>
+    </BulkActions>
+
 );
