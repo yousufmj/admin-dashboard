@@ -9,7 +9,7 @@ import RefreshListActions from './RefreshListActions'
 
 export const CompetitionList = (props) => (
 
-    <List {...props} filters={<CompetitionFilter />} actions={<RefreshListActions/>}>
+    <List {...props} filters={<CompetitionFilter />} actions={<CompetitionActions/>}>
         <Datagrid>
             <TextField source="id" />
             <TextField source="title" />
@@ -86,8 +86,6 @@ const CompetitionActions = ({ resource, filters, displayedFilters, filterValues,
             context: 'button',
         }) }
         <CreateButton basePath={basePath} />
-        <RefreshButton />
-        {/* Add your custom actions */}
-        <Button color="primary" >Custom Action</Button>
+        <RefreshListActions />
     </CardActions>
 );

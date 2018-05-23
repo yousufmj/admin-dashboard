@@ -1,15 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import compose from 'recompose/compose';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { translate, Link } from 'react-admin'
-import { CardActions } from 'material-ui/Card'
 import { stringify } from 'query-string';
-
-
-import { GET_LIST } from 'react-admin';
-import dataProvider from '../dataProvider';
+import RefreshIcon from '@material-ui/icons/Refresh';
 
 const styles = theme => ({
     button: {
@@ -37,6 +32,7 @@ const LinkToRelatedCustomers = ({ classes, segment, translate }) => (
         }}
     >
         Refresh
+        <RefreshIcon />
     </Button>
 );
 
