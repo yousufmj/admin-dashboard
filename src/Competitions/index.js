@@ -2,14 +2,15 @@ import React from 'react';
 import { List, Edit, Create, Show, Datagrid, ReferenceField, TextField, EditButton, DisabledInput,
     LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput, Filter,SimpleList,
     SimpleShowLayout, DateField, RichTextField, NumberInput, DateInput, NumberField, CardActions, ShowButton,
-    ListButton, DeleteButton, RefreshButton, Button, CreateButton } from 'react-admin';
+    ListButton, DeleteButton, RefreshButton, Button, CreateButton, BulkDeleteAction, BulkActions } from 'react-admin';
 import RichTextInput from 'ra-input-rich-text';
-import RefreshListActions from './RefreshListActions'
+import ResetButton from './../Components/ResetButton'
 
 
 export const CompetitionList = (props) => (
 
-    <List {...props} filters={<CompetitionFilter />} actions={<CompetitionActions/>}>
+    <List {...props} filters={<CompetitionFilter />} actions={<CompetitionActions/>}  >
+    {/* <List {...props} filters={<CompetitionFilter />} bulkActions={<CompetitionBulkActions/>}> */}
         <Datagrid>
             <TextField source="id" />
             <TextField source="title" />
@@ -76,16 +77,15 @@ export const CompetitionShow = (props) => (
     </Show>
 );
 
-const CompetitionActions = ({ resource, filters, displayedFilters, filterValues, basePath, showFilter }) => (
+const CompetitionActions = (props, { resource, filters, displayedFilters, filterValues, basePath, showFilter }) => (
     <CardActions>
-        {filters && React.cloneElement(filters, {
-            resource,
-            showFilter,
-            displayedFilters,
-            filterValues,
-            context: 'button',
-        }) }
+        {filters && React.cloneElement(filters, {resource, showFilter, displayedFilters, filterValues, context: 'button'})}
+
+        <BulkActions {...props}>
+            <BulkDeleteAction />
+        </BulkActions>
+
         <CreateButton basePath={basePath} />
-        <RefreshListActions />
+        <ResetButton />
     </CardActions>
 );

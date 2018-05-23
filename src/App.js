@@ -11,7 +11,7 @@ import config from './config';
 // ---- Custom Components ---
 import { PostList,PostEdit, PostCreate } from './posts';
 import { UserList } from './users';
-import { CompetitionList, CompetitionCreate, CompetitionEdit } from './Components/Competitions';
+import { CompetitionList, CompetitionCreate, CompetitionEdit } from './Competitions';
 
 const provider = dataProvider('http://127.0.0.1:3000');
 // const provider = jsonServerProvider('http://jsonplaceholder.typicode.com');

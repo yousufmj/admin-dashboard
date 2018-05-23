@@ -16,12 +16,12 @@ const styles = theme => ({
   });
 
 
-const LinkToRelatedCustomers = ({ classes, segment, translate }) => (
+const ResetView = ({ segment }) => (
     <Button
         color="primary"
         component={Link}
         to={{
-            pathname: '/competitions',
+            pathname: segment,
             search: stringify({
                 page: 1,
                 perPage: 10,
@@ -31,10 +31,10 @@ const LinkToRelatedCustomers = ({ classes, segment, translate }) => (
             }),
         }}
     >
-        Refresh
+        Reset
         <RefreshIcon />
     </Button>
 );
 
 const enhance = compose(withStyles(styles), translate);
-export default enhance(LinkToRelatedCustomers);
+export default enhance(ResetView);
