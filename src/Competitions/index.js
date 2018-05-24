@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {cloneElement} from 'react';
 import { List, Edit, Create, Show, Datagrid, ReferenceField, TextField, EditButton, DisabledInput,
     LongTextInput, ReferenceInput, SelectInput, SimpleForm, TextInput, Filter,SimpleList,
     SimpleShowLayout, DateField, RichTextField, NumberInput, DateInput, NumberField, CardActions, ShowButton,
     ListButton, DeleteButton, RefreshButton, Button, CreateButton, BulkDeleteAction, BulkActions } from 'react-admin';
 import RichTextInput from 'ra-input-rich-text';
-import ResetButton from './../Components/ResetButton';
-import Actions from './actions';
+import ResetButton from './../Utils/resetButton';
+import Actions from './../Utils/actions';
 
 
 export const CompetitionList = (props) => (
@@ -45,9 +45,8 @@ export const CompetitionEdit = (props) => (
 
 const CompetitionEditActions = ({ basePath, data, resource }) => (
     <CardActions>
-        <ShowButton basePath={basePath} record={data} />
         <DeleteButton basePath={basePath} record={data} resource={resource} />
-        <ResetButton />
+        <RefreshButton />
     </CardActions>
 );
 
@@ -73,27 +72,4 @@ export const CompetitionShow = (props) => (
             <DateField label="Expiry date" source="expiryDate" />
         </SimpleShowLayout>
     </Show>
-);
-
-const CompetitionActions = (props, { resource, filters, displayedFilters, filterValues, basePath, showFilter, bulkActions, onUnselectItems, selectedIds }) => (
-    <CardActions>
-     {filters && React.cloneElement(filters, {resource, showFilter, displayedFilters, filterValues, context: 'button'})}
-     {bulkActions && React.cloneElement(bulkActions, {
-                    basePath,
-                    filterValues,
-                    resource,
-                    selectedIds,
-                    onUnselectItems,
-                })}
-
-        <CreateButton basePath={'competitions'} />
-        <ResetButton />
-    </CardActions>
-);
-
-const ReviewsBulkActions = props => (
-    <BulkActions {...props}>
-        <BulkDeleteAction/>
-    </BulkActions>
-
 );

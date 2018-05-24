@@ -2,7 +2,7 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import onlyUpdateForKeys from 'recompose/onlyUpdateForKeys';
 import { CreateButton, RefreshButton, CardActions } from 'react-admin';
-import ResetButton  from './../Components/ResetButton';
+import ResetButton  from './resetButton';
 
 const Actions = ({
     bulkActions,
